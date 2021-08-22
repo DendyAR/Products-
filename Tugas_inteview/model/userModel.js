@@ -10,7 +10,7 @@ const userModel = {
         query: { limit = 20, page = 1 },
       } = req;
       pg.query(getalluser(limit, page), (err, result) => {
-        console.log(err, "model user");
+        // console.log(err, "model user");
         const { isEmpty } = isDataEmpty(result);
         if (isEmpty) reject(formError("Data Not found", 400));
         if (err) reject(formError("Get All users failed", 500));

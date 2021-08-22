@@ -12,12 +12,12 @@ const productController = {
   },
 
   addNewProduct: async (req, res) => {
-      console.log(req)
+      // console.log(req)
     try {
       const result = await productModel.addNewproduct(req);
       res.status(result.statusCode).send(result);
     } catch (error) {
-        console.log(error,'k')
+        // console.log(error,'k')
       res.status(error.statusCode).send(error);
     }
   },

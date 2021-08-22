@@ -23,12 +23,22 @@ const productModel = {
 
   addNewproduct: (request) => {
     return new Promise((resolve, reject) => {
-      const { name, stock, description, price, categories, weight, condition, brand, rating } = request.body;
+      const {
+        name,
+        stock,
+        description,
+        price,
+        categories,
+        weight,
+        condition,
+        brand,
+        rating,
+      } = request.body;
       const photos = request.file.filename;
       pg.query(
         `SELECT * FROM products WHERE LOWER(name)='${name.toLowerCase()}'`,
         (error, result) => {
-            // console.log(error, 'model 1')
+          // console.log(error, 'model 1')
           if (!error) {
             if (result.rows.length < 1) {
               // let content = article_content
@@ -36,13 +46,13 @@ const productModel = {
                 `INSERT INTO products(name, stock, description, price, categories, images, weight, condition, brand, author, rating, seller)
                                     VALUES('${name}', ${stock}, '${description}',${price}, '${categories}', '/upload/images/${photos}',${weight}, '${condition}', '${brand}',${rating}, '${seller}') RETURNING *`,
                 (err) => {
-                    console.log(err,'model 2')
+                  // console.log(err, "model 2");
                   if (!err) {
                     resolve(
                       fromSuccsess("Add article success", 200, result.rows[0])
                     );
                   } else {
-                    console.log(err);
+                    // console.log(err);
                     reject(formError("Add article Failed", 500));
                   }
                 }

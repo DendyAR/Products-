@@ -7,7 +7,7 @@ const usersController={
             res.status(result.statusCode).send(result) 
         }catch(error){
             res.status(error.statusCode).send(error)
-            console.log(error,'contro')
+            // console.log(error,'contro')
         }
     },
 
