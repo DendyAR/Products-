@@ -1,15 +1,13 @@
 const pg = require("../connection/connection");
 const isDataEmpty = require("../helper/checkData");
 const { formError, fromSuccsess } = require("../helper/formResponse");
-const unlinkImages = require("../helper/unlinkImages");
 const { getAll, addProduct } = require("../query/product/queryProduct");
-const formResponse = require("../helper/formResponse");
 
 const productModel = {
   getAllProduct: (req) => {
     return new Promise((resolve, reject) => {
       const {
-        query: { limit = 100, page = 1 },
+        query: { limit = 20, page = 1 },
       } = req;
       pg.query(getAll(limit, page), (err, result) => {
         // console.log(err, "mode");
