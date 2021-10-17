@@ -26,8 +26,8 @@ class Dhasboard extends Component {
       }
     });
     const userData = JSON.parse(localStorage.getItem("userData"));
-    if(userData.uid === null){
-      this.props.getNotes(userData);
+    if(userData === null){
+      return userData
     }else{
       JSON.parse(localStorage.getItem("userData"))
       this.props.getNotes(userData.uid)
