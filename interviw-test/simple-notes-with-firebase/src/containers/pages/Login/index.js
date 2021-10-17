@@ -35,6 +35,15 @@ class Login extends Component {
     }
   };
 
+  gotoRegister =  () => {
+    const { history } = this.props
+    this.setState({
+      email: "",
+      password: "",
+    })
+    history.push('/register')
+  }
+
   render() {
     return (
       <div className="auth-container">
@@ -59,8 +68,7 @@ class Login extends Component {
             title="Login"
             loading={this.props.isLoading}
           /> 
-          {/* <button className="btn" title="login" onClick={this.handleLoginSubmite} loading={this.props.isLoading}> Login</button>
-          <button className="btn" >Go to Register</button> */}
+          <button className="btn" onClick={this.gotoRegister} title='register'>Go to register</button>
         </div>
       </div>
     );

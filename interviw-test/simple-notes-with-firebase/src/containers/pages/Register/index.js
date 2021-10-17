@@ -28,8 +28,20 @@ class Register extends Component {
         email: "",
         password: "",
       })
+      alert("Anda Berhasil Login")
+    this.props.history.push('/login')
     }
   };
+
+  goTologin =  () => {
+    const { history } = this.props
+    this.setState({
+      email: "",
+      password: "",
+    })
+    history.push('/login')
+  }
+
 
   render() {
     return (
@@ -57,8 +69,8 @@ class Register extends Component {
             title="Register"
             loading={this.props.isLoading}
           />
+        <button className="btn" onClick={this.goTologin}>Login</button>
         </div>
-        {/* <button>Go to Register</button> */}
       </div>
     );
   }

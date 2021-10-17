@@ -1,21 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addDataToFirebase, deleteDataAPI, getDataToAPI, updateDataAPI } from "../../../config/redux/action";
+import {
+  addDataToFirebase,
+  deleteDataAPI,
+  getDataToAPI,
+  logoutAPI,
+  updateDataAPI,
+} from "../../../config/redux/action";
 import "./Dhasboard.scss";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 class Dhasboard extends Component {
   state = {
     title: "",
     content: "",
     date: "",
-    textButton: 'SIMPAN'
+    textButton: "SIMPAN",
   };
 
   componentDidMount() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user || window.localStorage.key === null) {
+        this.props.history.push('/login')
+      }
+    });
     const userData = JSON.parse(localStorage.getItem("userData"));
-    this.props.getNotes(userData.uid);
-    // const userData = localStorage.getItem('userData')
-    // console.log("Dhasboard",JSON.parse(userData))
+    if(userData.uid === null){
+      this.props.getNotes(userData);
+    }else{
+      JSON.parse(localStorage.getItem("userData"))
+      this.props.getNotes(userData.uid)
+    }
   }
 
   handleSaveNotes = () => {
@@ -26,14 +42,14 @@ class Dhasboard extends Component {
     const data = {
       title: title,
       content: content,
-      date: new Date().getTime(),
+      date: new Date().getDate(),
       userId: userData.uid,
     };
-    if(textButton === 'SIMPAN'){
-        saveNotes(data);
-    }else{
-        data.noteId = noteId
-        updateNotes(data)
+    if (textButton === "SIMPAN") {
+      saveNotes(data);
+    } else {
+      data.noteId = noteId;
+      updateNotes(data);
     }
     console.log(data);
   };
@@ -45,38 +61,51 @@ class Dhasboard extends Component {
   };
 
   updateNotes = (note) => {
-    console.log(note)
+    console.log(note);
     this.setState({
-        title: note.data.title,
-        content: note.data.content,
-        textButton: 'UPDATE',
-        noteId: note.id
-    })
-  }
+      title: note.data.title,
+      content: note.data.content,
+      textButton: "UPDATE",
+      noteId: note.id,
+    });
+  };
 
   cancelUpdate = () => {
-    console.log()
+    console.log();
     this.setState({
-        title: '',
-        content: '',
-        textButton: 'SIMPAN'
-    })
-  }
+      title: "",
+      content: "",
+      textButton: "SIMPAN",
+    });
+  };
 
-   deleteNotes = (e, note) => {
-    e.stopPropagation()
-    const {deleteToNotes} = this.props
+  deleteNotes = (e, note) => {
+    e.stopPropagation();
+    const { deleteToNotes } = this.props;
     const userData = JSON.parse(localStorage.getItem("userData"));
     const data = {
-        userId: userData.uid,
-        noteId: note.id
+      userId: userData.uid,
+      noteId: note.id,
+    };
+    deleteToNotes(data);
+    alert("Data terhapus");
+  };
+
+  handleLogout = () => {
+    const { email, password } = this.state;
+    const { history } = this.props;
+    const res = this.props.logoutUser({ email, password }).catch((err) => err);
+    if (res) {
+      console.log("Logout Succsess", res);
+      window.localStorage.clear();
+      history.push("/login");
+    } else {
+      console.log("Logout failed");
     }
-    deleteToNotes(data)
-    alert("Data terhapus")
-   }
+  };
 
   render() {
-    const { title, content , textButton } = this.state;
+    const { title, content, textButton } = this.state;
     const { notes } = this.props;
     const { updateNotes, cancelUpdate } = this;
     console.log("Notes", notes);
@@ -96,26 +125,46 @@ class Dhasboard extends Component {
             onChange={(e) => this.onInputChange(e, "content")}
           ></textarea>
           <div className="action-wrraper">
-            {
-                textButton === 'UPDATE' ? (
-                <button className="save-btn cancel" onClick={this.handleSaveNotes} onClick={cancelUpdate}>Cancle</button>
-                ) : <div/>   
-            }
-                <button className="save-btn" onClick={this.handleSaveNotes} >{textButton}</button>
+            {textButton === "UPDATE" ? (
+              <button
+                className="save-btn cancel"
+                onClick={this.handleSaveNotes}
+                onClick={cancelUpdate}
+              >
+                Cancle
+              </button>
+            ) : (
+              <div />
+            )}
+            <button className="save-btn" onClick={this.handleSaveNotes}>
+              {textButton}
+            </button>
+            <button className="save-btn" onClick={this.handleLogout}>
+              Logout
+            </button>
           </div>
-                  </div>
+        </div>
         <hr />
         {notes.length > 0
-          ? notes.map((note => {
+          ? notes.map((note) => {
               return (
-                <div className="card-content" key={note.id} onClick={() => updateNotes(note)}>
+                <div
+                  className="card-content"
+                  key={note.id}
+                  onClick={() => updateNotes(note)}
+                >
                   <p className="title">{note.data.title}</p>
                   <p className="date">{note.data.date}</p>
                   <p className="content">{note.data.content}</p>
-                  <div className="delete-btn" onClick={(e) =>  this.deleteNotes(e, note)}>X</div>
+                  <div
+                    className="delete-btn"
+                    onClick={(e) => this.deleteNotes(e, note)}
+                  >
+                    X
+                  </div>
                 </div>
               );
-            }))
+            })
           : null}
       </div>
     );
@@ -130,8 +179,9 @@ const reduxState = (state) => ({
 const reduxDispatch = (dispatch) => ({
   saveNotes: (data) => dispatch(addDataToFirebase(data)),
   getNotes: (data) => dispatch(getDataToAPI(data)),
-  updateNotes: (data) => dispatch(updateDataAPI(data)),  
-  deleteToNotes: (data) => dispatch(deleteDataAPI(data))  
+  updateNotes: (data) => dispatch(updateDataAPI(data)),
+  deleteToNotes: (data) => dispatch(deleteDataAPI(data)),
+  logoutUser: (data) => dispatch(logoutAPI(data)),
 });
 
 export default connect(reduxState, reduxDispatch)(Dhasboard);

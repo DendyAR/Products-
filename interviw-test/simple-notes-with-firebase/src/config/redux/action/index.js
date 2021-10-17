@@ -2,6 +2,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 import { getDatabase, ref, push, onValue, set, remove} from "firebase/database";
@@ -88,7 +89,6 @@ export const getDataToAPI = (userId) => (dispatch) => {
     
     onValue(urlNotes, function(snapshot) {
       console.log("data", snapshot.val())
-
       const data = []; 
       Object.keys(snapshot.val()).map(key => {
         data.push({
@@ -127,5 +127,16 @@ export const deleteDataAPI = (data) => (dispatch) => {
     remove(urlNotes, (err) =>  {
       
     })
+  })
+}
+
+export const logoutAPI = (data) => (dispatch) => {
+  return new Promise((resolve, reject)=> {
+    const auth = getAuth();
+    signOut(auth).then((res) => {
+    resolve(res)
+  }).catch((error) => {
+    reject(error)
+  });
   })
 }
