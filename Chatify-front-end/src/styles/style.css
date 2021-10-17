@@ -1,0 +1,325 @@
+/* importing font family rubik */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
+/* variable color root */
+:root{
+    --purple : #7E98DF;
+    --lightpurple :#99b0f0;
+}
+
+small a{
+    text-decoration: none;
+    color: black;
+}
+
+/* Set font pada content di body */
+body{
+    font-family: 'Rubik', sans-serif;
+    max-height: 100vh;
+}
+
+/* background color purple */
+.bg-purple{
+    background-color: var(--purple);
+}
+/* hidden menu */
+aside #menu, #call-dialog{
+    display: none;
+}
+
+/* for icon */
+.icon{
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* background color purple */
+.bg-purple-icon{
+    background: #7E98DF;
+    border-radius: 50%;
+    padding: 2%;
+    text-align: center;
+    color: white;
+}
+
+/* Splash screen */
+.splashscreen{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* list chat list*/
+.list{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 65vh;
+    padding-bottom: 1em;
+}
+
+/* list message */
+.list-message{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 76vh;
+    padding-bottom: 1em;
+}
+
+/* for teks input message */
+.footer-list, .head-list{
+    height: 12vh;
+    width: 100%;
+}
+
+/* list call history*/
+.list-call{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 90%;
+    padding-bottom: 1em;
+}
+
+main, aside{
+    max-height: 100vh;
+}
+
+/* navigation active */
+.active{
+    padding: 1em;
+    width: 100%;
+    color: white;
+    text-decoration: none;
+}
+
+/* text black */
+.text-black{
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+}
+
+/* form register, form login, form forgot password */
+.auth{
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    border-radius: 20px;
+    min-height: 100vh;
+    border: none;
+}
+
+/* input field line */
+.input-line {
+    width: 100%;
+    background-color: transparent;
+    border-radius: 0;
+    outline: none;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #000000 1px;
+    padding: 1vh 10px;
+}
+
+/* efek input password */
+.password{
+    letter-spacing: 0.5em;
+}
+
+/* styling icon back */
+.back-btn{
+    z-index: 1;
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--purple);
+}
+
+.dialog-call{
+    border-radius: 30px;
+}
+
+.sender{
+    float: right;
+}
+
+.receiver{
+    float: left;
+}
+
+/* styling search box */
+.search-box{
+    border: none;
+    height: 3em;
+    padding: 1em;
+}
+
+/* btn-group-call*/
+.call{
+    border: none;
+}
+.call:hover{
+    border-radius: 20px;
+}
+/* icon search */
+.icon{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+/* field search */
+.field{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+/* layout filter */
+.filter{
+    text-align: center;
+    max-width: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    min-height: 10vh;
+    max-height: auto;
+}
+
+.photo{
+    height: 4em;
+    width: 4em;
+    border-radius: 20px;
+}
+
+.photo-message{
+    height: 3em;
+    width: 3em;
+    border-radius: 20px;
+}
+/* Message right */
+.message-right{
+    height: auto;
+    max-width: 30%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+/* Message Left */
+.message-left{
+    height: auto;
+    max-width: 30%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+/* Menu panel */
+.menu-panel-right{
+    height: auto;
+    width: auto;
+}
+.menu-panel-right{
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.z-5{
+    z-index: 5;
+}
+.z-2{
+    z-index: 2;
+}
+/* .bg-image{
+    background-image: url('./images/photos/Background.png') ;
+    background-size: cover;
+    height: 60vh;
+} */
+/* styling icon eye*/
+.toogle-btn{
+    position: relative;
+    z-index: 1;
+    float: right;
+    outline: none;
+    border: none;
+    background: none;
+    top: -40px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+.no-styling{
+    text-decoration: none;
+}
+/* styling text color purple */
+.text-purple{
+    color: var(--purple);
+    text-decoration: none;
+}
+
+/* button bakcground purple */
+.btn-purple{
+    color: white;
+    background-color: var(--purple);
+    transition: 1.0s;
+    font-weight: 600;
+    width: 100%;
+}
+/* button outline purple */
+.btn-outline-purple{
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    transition: 1.0s;
+    font-weight: 600;
+}
+input[type="file"] {
+    display: none;
+}
+.search-box input:focus{
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+/* input-line focus */
+input.input-line:focus{
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: none !important;
+}
+
+/* button outline purple hover */
+.btn-outline-purple:hover{
+    color: white;
+    background-color: var(--purple);
+}
+
+/* button puprle hover */
+.btn-purple:hover{
+    color: black;
+    background-color: var(--lightpurple);
+}
+
+/* scrollbar webkit */
+.list::-webkit-scrollbar, .filter::-webkit-scrollbar, .list-call::-webkit-scrollbar, .list-message::-webkit-scrollbar{
+    display: none;
+}
+
+/* media on layar 1024 pixel */
+@media (max-width: 1024px){
+    .auth{
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        min-width: 60vw;
+        border-radius: 0px;
+    }
+
+    aside{
+        max-width: 40vw;
+    }
+}
+
+/* media on layar maximal 768 pixel */
+@media (max-width: 600px){
+    aside{
+        max-width: 40vw;
+    }
+}
